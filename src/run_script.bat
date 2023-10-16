@@ -1,0 +1,1 @@
+conda activate d://newenv && python "D:\My Documents\Desktop\python_office_11_OCT_2023\src\sale_report_script.py"

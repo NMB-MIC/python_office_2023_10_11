@@ -70,6 +70,6 @@ plot= sheet_report.pictures.add(fig,top=sheet["A3"].top,left=sheet["A3"].left)
 plot.width = plot.width*0.8
 plot.height = plot.height*0.8
 
-template.save(f"export\summary_sale_report_{date_file_name}.xlsx")
+template.save(f"D:/My Documents/Desktop/python_office_11_OCT_2023/src/export/summary_sale_report_{date_file_name}.xlsx")
 template.close()
 app.kill()
