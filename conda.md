@@ -1,6 +1,6 @@
 #### conda command
 
-conda create -p d:\newenv python
+conda create -p d:\newenv python==3.10
 
 conda activate d:\newenv
 
