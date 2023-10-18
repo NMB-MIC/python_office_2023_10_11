@@ -56,7 +56,7 @@ with report:
     line_chart(df_process,"Band V bright",7,sort_by)
     
     with st.expander("See data explanation"):
-        st.dataframe(df_plot,width=700)
+        st.dataframe(df_plot,width=1000)
         st.download_button(
         "EXPORT CSV",
         df_plot.to_csv(index=False).encode('utf-8'),
