@@ -10,6 +10,24 @@ st.set_page_config(
     layout="wide"
 )
 
+
+def line_chart(df,col,limit,sort_by):
+    fig, ax = plt.subplots(figsize=(17,10))
+    plt.rcParams.update({'font.size': 30})
+
+    for key, grp in df.groupby([sort_by]):
+        ax = grp.plot(ax=ax, kind='line', x='StopTime', y=col,label=key[0])
+
+    plt.axhline(int(limit), linestyle="--", color="red", label="limit line")
+
+    plt.xlabel("date")
+    plt.ylabel("value")
+    plt.title(col)
+
+    plt.legend(loc='upper right',fontsize=20)
+
+    st.pyplot(fig)
+
 st.title("DEMO DATA ANALYTIC APP")
 
 
@@ -19,6 +37,7 @@ yesterday = today - datetime.timedelta(days=1)
 start_date = st.sidebar.date_input("Start date",yesterday)
 end_date =st.sidebar.date_input("end date",today)
 
+sort_by = st.sidebar.radio('sort by',options=['Mold','Test Time'])
 
 report,uploadfile = st.tabs(["REPORT","UPLOAD FILE"])
 
@@ -28,11 +47,13 @@ with report:
     mask = (df['stopDate'] >= str(start_date)) & (df['stopDate'] < str(end_date+datetime.timedelta(days=1)))
     df_process = df.loc[mask]
  
-    df_plot = df_process[["stopDate","Band V bright"]]
+    df_plot = df_process[["stopDate","Band V bright",sort_by]]
 
-    fig, ax = plt.subplots()
-    ax.plot(df_plot["stopDate"], df_plot["Band V bright"])
-    st.pyplot(fig)
+    # fig, ax = plt.subplots()
+    # ax.plot(df_plot["stopDate"], df_plot["Band V bright"])
+    # st.pyplot(fig)
+
+    line_chart(df_process,"Band V bright",7,sort_by)
     
     with st.expander("See data explanation"):
         st.dataframe(df_plot,width=700)
