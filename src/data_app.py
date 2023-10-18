@@ -33,8 +33,14 @@ with report:
     fig, ax = plt.subplots()
     ax.plot(df_plot["stopDate"], df_plot["Band V bright"])
     st.pyplot(fig)
-
-    st.dataframe(df_plot)
+    
+    with st.expander("See data explanation"):
+        st.dataframe(df_plot,width=700)
+        st.download_button(
+        "EXPORT CSV",
+        df_plot.to_csv(index=False).encode('utf-8'),
+        "file.csv",
+        "text/csv")
 
 
 with uploadfile:
